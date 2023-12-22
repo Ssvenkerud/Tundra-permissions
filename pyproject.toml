@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "tundra"
+version = "0.1.0"
+description = ""
+authors = ["Simen Svenkerud"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+click = "^8.0.3"
+pyyaml = "^6.0.3"
+regex = "^2023.10.3"
+dictdiffer = "^0.9.0"
+wheel = "^0.41.2"
+setuptools = "^68.2.2"
+
+[tool.poetry.dev.dependencies]
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+pytest-mock = "^3.6.1"
+black = "^21.9b0"
+isort = "^5.9.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
