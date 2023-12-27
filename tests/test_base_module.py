@@ -1,8 +1,8 @@
 import pytest
 import logging
 
-from src.BaseModule import BaseModule
-from src.Entity import Permission_entity
+from src.tundra.BaseModule import BaseModule
+from src.tundra.Entity import Permission_entity
 
 logging.basicConfig(level=logging.DEBUG)
 
