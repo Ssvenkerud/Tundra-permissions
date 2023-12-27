@@ -21,3 +21,9 @@ class FileReader:
                     self.files.append(os.path.join(root, file))
 
         return self.files
+
+    def import_files(self, loader):
+        self.data = []
+        for file in self.files:
+            self.data.append(loader(file))
+        return self.data

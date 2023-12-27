@@ -1,6 +1,7 @@
 import pytest
 import yaml
 
+from src.tundra.file_loader import load_yaml 
 from src.tundra.FileReader import FileReader
 
 
@@ -45,3 +46,11 @@ def test_FileReader_not_dir():
         "tests/data/base_premissions/team_a_permisions.yml"
     ]
     assert reader.files == ["tests/data/base_premissions/team_a_permisions.yml"]
+
+
+def test_FileReader_import_files():
+    reader = FileReader()
+    reader.load_dir("tests/data/base_premissions/team_a_permisions.yml")
+    assert reader.import_files(load_yaml) ==[ load_yaml_file(
+        "tests/data/base_premissions/team_a_permisions.yml"
+    )]
