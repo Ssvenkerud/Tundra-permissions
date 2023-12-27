@@ -1,5 +1,6 @@
 from .Entity import Permission_entity
 
+
 class BaseModule:
     def __init__(self, type):
         self.type = type
@@ -7,7 +8,7 @@ class BaseModule:
 
     def add_entity(self, entity):
         if not isinstance(entity, Permission_entity):
-            raise ValueError(f'Invalid entity type: {type(entity)}')
+            raise ValueError(f"Invalid entity type: {type(entity)}")
 
         self.entitiees[entity.name] = entity
 
@@ -21,7 +22,4 @@ class BaseModule:
         return self.type
 
     def __repr__(self):
-        return f'BaseModule(type={self.type}, entitiees={self.entitiees})'
-
-
-
+        return f"BaseModule(type={self.type}, entitiees={self.entitiees})"

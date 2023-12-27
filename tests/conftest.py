@@ -74,6 +74,7 @@ def roles_object_str_results():
 
 # Functional roles
 
+
 @pytest.fixture
 def single_functional_role_object_str_results():
     return f"""{space*1}- role2:\n{space*3}warehouses:\n{space*4}- warehouse1\n{space*3}member_of:\n{space*4}- ar_db_database1_r\n{space*4}- ar_db_database1_w\n{space*4}- ar_db_database2_r\n{space*4}- ar_db_database2_w\n\n"""
@@ -105,6 +106,7 @@ def accsess_roles_object_str_results(single_accsess_role_object_str_results):
 
 # Databases
 
+
 @pytest.fixture
 def databases_object1():
     return [
@@ -119,6 +121,7 @@ def databases_object2():
         {"database3": {"shared": "yes"}},
         {"database2": {"shared": "no", "owner": "loader_qlik"}},
     ]
+
 
 @pytest.fixture
 def single_database_object_str_results():
@@ -167,6 +170,7 @@ def users_object_str_results(singel_user_object_str_result):
 
 # Warehouses
 
+
 @pytest.fixture
 def single_warehouse_object_str_results():
     return f"""warehouses:\n{space*1}- warehouse1:\n{space*3}size: xsmall\n"""
@@ -199,6 +203,7 @@ def object1():
 def object2():
     return [{"entitiy2": {"key": "value"}}, {"entitiy3": {"key": "value"}}]
 
+
 # Spessification
 
 
@@ -217,6 +222,7 @@ def yaml_spessification_a():
 @pytest.fixture
 def yaml_spessification_b():
     return load_yaml("tests/data/base_premissions/team_b_permisions.yml")
+
 
 # State
 @pytest.fixture
