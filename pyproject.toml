@@ -15,7 +15,7 @@ wheel = "^0.41.2"
 setuptools = "^68.2.2"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^6.2.5"
+pytest = "^7.2.0"
 pytest-cov = "^3.0.0"
 pytest-mock = "^3.6.1"
 black = "^21.9b0"
