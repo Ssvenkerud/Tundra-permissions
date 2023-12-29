@@ -20,4 +20,3 @@ class ModuleDescription:
         self.log.info(f"Returning {self.type} description")
         self.description["count"] = self.count
         self.description["entities"] = self.entities
-        

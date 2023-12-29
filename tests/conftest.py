@@ -12,6 +12,7 @@ def load_yaml(yaml_file):
         file = yaml.safe_load(in_fh)
     return file
 
+
 # Base Module
 
 
@@ -46,6 +47,7 @@ def base_module_loaded_with_dependencies():
         "entitiy4": {"warehouse": "dependency4"},
     }
     return base_module
+
 
 # Databases
 
@@ -100,6 +102,3 @@ def databases_object_str_results(single_database_object_str_results):
         single_database_object_str_results
         + f"""{space*1}- database2:\n{space*3}shared: no\n{space*3}owner: loader_qlik\n{space*1}- database3:\n{space*3}shared: yes\n"""
     )
-
-
-
