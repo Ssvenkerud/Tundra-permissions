@@ -1,7 +1,7 @@
 import logging
 
 
-class ModuleDescription:
+class Module_description:
     def __init__(self, type):
         self.type = type
         self.entities = []
@@ -20,3 +20,4 @@ class ModuleDescription:
         self.log.info(f"Returning {self.type} description")
         self.description["count"] = self.count
         self.description["entities"] = self.entities
+        return self.description

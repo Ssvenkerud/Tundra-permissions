@@ -1,9 +1,9 @@
 import logging
 import warnings
-from .ModuleDescription import ModuleDescription
+from .Module_description import Module_description
 
 
-class BaseModule:
+class Base_Module:
     def __init__(self):
         self.spesification = {}
         self.type = "Entity"
@@ -34,7 +34,7 @@ class BaseModule:
 
     def describe(self):
         self.log.info(f"Describing {self.type}")
-        description = ModuleDescription(self.type)
+        description = Module_description(self.type)
         description.gather_description(self)
         self.log.info(f"{self.type} described")
         self.log.debug(f"{self.type} description: {description}")

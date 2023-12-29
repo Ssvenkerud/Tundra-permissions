@@ -1,10 +1,10 @@
-from src.tundra.BaseModule import BaseModule
+from src.tundra.Base_module import Base_Module
 import pytest
 import logging
 
 
 def test_base_module_add_entities(object1):
-    base_module = BaseModule()
+    base_module = Base_Module()
     base_module.add_entities(object1)
     assert base_module.spesification == {
         "entitiy1": {"key": "value"},
@@ -13,7 +13,7 @@ def test_base_module_add_entities(object1):
 
 
 def test_base_module_add_entities(object1, object2, base_module_loaded):
-    base_module = BaseModule()
+    base_module = Base_Module()
     base_module.add_entities(object1)
     base_module.add_entities(object2)
     assert base_module.spesification == base_module_loaded.spesification
