@@ -22,7 +22,7 @@ def test_simple_generation():
     spec.identify_modules()
     spec.identify_entities()
     spec.generate()
-    
+
     spec.export("tests/data/generated/team_a_permisions.yml")
     assert spec.generated == True
     assert isinstance(spec.output, str)
@@ -106,6 +106,7 @@ def test_appended_concatination_with_role_generation(caplog):
         os.remove("tests/data/generated/imputed_permissions.yml")
     except:
         pass
+
 
 @pytest.mark.skip(reason="undeclared bug")
 def test_concatination_plan(caplog, capsys):

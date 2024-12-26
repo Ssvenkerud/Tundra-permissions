@@ -26,7 +26,9 @@ class Databases_Module(Base_Module):
         for databases in self.spesification:
             self.log.debug(f"Generating access role from database: {databases}")
             if re.match("^snowflake.*", databases):
-                self.log.debug(f"Database {databases} is a snowflake core database, skip generation of access role")
+                self.log.debug(
+                    f"Database {databases} is a snowflake core database, skip generation of access role"
+                )
                 continue
 
             elif re.match("^dev_.*", databases):

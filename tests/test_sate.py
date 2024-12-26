@@ -5,7 +5,6 @@ from src.tundra.Permission_state import Permission_state
 from src.tundra.loader_local_file import Local_file_loader
 
 
-
 def test_permision_state_exists(spesification_team_c_verified):
     """
     Test that the Permission_state class generates a permission state object
@@ -40,8 +39,12 @@ def test_permision_state_export(
     """
     working_dir = os.getcwd()
     permission_state = Permission_state(spesification_team_c_verified)
-    permission_state.export(f"{working_dir}/tests/data/generated/permision_state_export.json")
-    with open(f"{working_dir}/tests/data/generated/permision_state_export.json", "r") as file:
+    permission_state.export(
+        f"{working_dir}/tests/data/generated/permision_state_export.json"
+    )
+    with open(
+        f"{working_dir}/tests/data/generated/permision_state_export.json", "r"
+    ) as file:
         output = json.load(file)
     assert output == team_c_verefied_state_file
     try:
