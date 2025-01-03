@@ -1,16 +1,18 @@
 import json
 import logging
-import sys
 import os
+import sys
 from operator import itemgetter
+
 from dictdiffer import diff
 from dictdiffer.utils import PathLimit
+
 from .Spesification import Spesification
 from .txt_generator import txt_generator
 
 
 class Permission_state:
-    def __init__(self, specification: Spesification = None):
+    def __init__(self, specification: Spesification = ""):
         self.serial = 0
         self.specification = specification
         self.state = None
@@ -64,29 +66,44 @@ class Permission_state:
             if len(split_change) == 3:
                 base, module, entity = split_change
                 self.log.debug(f"Module: {module}, entity: {entity}")
-                self.state_changes.append((module, entity)) if (
-                    module,
-                    entity,
-                ) not in self.state_changes else self.state_changes
+                (
+                    self.state_changes.append((module, entity))
+                    if (
+                        module,
+                        entity,
+                    )
+                    not in self.state_changes
+                    else self.state_changes
+                )
             elif len(split_change) == 2:
                 base, module = split_change
                 self.log.debug(f"Module: {module}, entity: {difference[2][0][0]}")
                 if len(difference[2]) > 1:
                     for change in difference[2]:
                         self.log.debug(f"Change: {change}")
-                        self.state_changes.append((module, change[0])) if (
-                            module,
-                            change[0],
-                        ) not in self.state_changes else self.state_changes
+                        (
+                            self.state_changes.append((module, change[0]))
+                            if (
+                                module,
+                                change[0],
+                            )
+                            not in self.state_changes
+                            else self.state_changes
+                        )
                 else:
-                    self.state_changes.append((module, difference[2][0][0])) if (
-                        module,
-                        difference[2][0][0],
-                    ) not in self.state_changes else self.state_changes
+                    (
+                        self.state_changes.append((module, difference[2][0][0]))
+                        if (
+                            module,
+                            difference[2][0][0],
+                        )
+                        not in self.state_changes
+                        else self.state_changes
+                    )
 
         return self
 
-    def plan(self, file_path: str = None):
+    def plan(self, file_path: str = ""):
         if file_path != "":
             with open(file_path, "w") as file:
                 if len(self.state_changes) == 0:

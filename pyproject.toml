@@ -1,9 +1,10 @@
 [tool.poetry]
-name = "tundra"
+name = "Tundra"
 version = "0.1.0"
-description = ""
-authors = ["Simen Svenkerud"]
+description = "Module to to take multiple Permifrost spec files and concatenate them into one"
+authors = ["Simen Svenkerud <simen@ullrscrafts.com>"]
 readme = "README.md"
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -23,5 +24,23 @@ isort = "^5.9.3"
 
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+tundra = "tundra:tundra"
+
+[project]
+name = "tundra"
+version = "0.1.0"
+description = "Concatenates multiple Permifrost spec files into one"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "click",
+    "pyyaml",
+    "regex",
+    "dictdiffer"
+]
+
+

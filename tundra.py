@@ -1,91 +1,111 @@
+import logging
+import sys
+
 import click
 
-from src.tundra.Spesification import Spesification
-from src.tundra.Permission_state import Permission_state
 from src.tundra.loader_local_file import Local_file_loader
-
-
-verification_option = click.option(
-    "--verification",
-    default=false,
-    help="""Run permissioin file
-              verification""",
-)
-generate_role_option = click.option(
-    "--generate_roles",
-    default=false,
-    help="""generate AR roles that
-              are not in permissions file""",
-)
-permission_path_option = click.option(
-    "--permission_path",
-    default=".",
-    help="""path to permsisions
-              file or directory containing permisisons file""",
-)
-state_path_option = click.option(
-    "--state_path",
-    default=".",
-    help="""Path to the current
-              statefile""",
-)
-change_path_option = click.option(
-    "-change_path",
-    default="",
-    help="""Path for printing change
-             output file""",
-)
-export_path_option = click.option(
-    "--export_path",
-    default="./permifrost_permisions.yml",
-    help="""Location for the processed permiforst file""",
-)
-
-
-def processing(verification, generate_roles, permission_path):
-    permisions = Spesification(verification, generate_roles)
-    permisions.load(permission_path)
-    permisions.identify_modules()
-    permisions.identify_entities()
-    permisions.generate()
-
-    return permisions
+from src.tundra.Permission_state import Permission_state
+from src.tundra.Spesification import Spesification
 
 
 @click.group()
-def cli():
+@click.version_option(version="0.1.0")
+@click.option("--log-level", default="info", help="set logglevel for run")
+def tundra(log_level):
+    """Tundra: A CLI tool for managing permissions and roles."""
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler(sys.stdout)
+
+    if log_level == "info":
+        handler.setLevel(logging.INFO)
+    elif log_level == "error":
+        handler.setLevel(logging.ERROR)
+    elif log_level == "debug":
+        handler.setLevel(logging.DEBUG)
+
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    handler.setFormatter(formatter)
+    root.addHandler(handler)
     pass
 
 
-@click.command("plan")
-@verification_option
-@generate_role_option
-@permission_path_option
-@state_path_option
-@change_path_option
-def plan(permission_path, state_path, change_path):
-    permisions = processing(verification, generate_roles, permission_path)
-    previouse_state = Permission_state().load(Local_file_loader(), state_path)
-    planned_state = Permission_state(permisions).generate()
-    planned_state.compare(previouse_state)
+@tundra.command()
+@click.option("--verification", is_flag=True, help="Run permission file verification")
+@click.option(
+    "--generate-roles",
+    is_flag=True,
+    help="Generate AR roles that are not in permissions file",
+)
+@click.option(
+    "--permission-path",
+    default=".",
+    help="Path to permissions file or directory containing permissions file",
+)
+@click.option("--state-path", default="", help="Path to the current state file")
+@click.option("--change-path", default="", help="Path for printing change output file")
+def plan(verification, generate_roles, permission_path, state_path, change_path):
+    """Plan changes to permissions and roles."""
+    permissions = process_permissions(verification, generate_roles, permission_path)
+    previous_state = Permission_state().load(Local_file_loader("yaml"), state_path)
+    planned_state = Permission_state(permissions).generate()
+    planned_state.compare(previous_state)
     planned_state.plan(change_path)
+    click.echo("Plan completed.")
 
 
-@click.command('apply')
-@verification_option
-@generate_role_option
-@permission_path_option
-@export_path_option
-def apply(
-    verification, generate_roles, permission_path, state_path, change_path, export_path
-):
-    permisions = processing(verification, generate_roles, permission_path)
-    permisions.export(export_path)
+@tundra.command()
+@click.option("--verification", is_flag=True, help="Run permission file verification")
+@click.option(
+    "--generate-roles",
+    is_flag=True,
+    help="Generate AR roles that are not in permissions file",
+)
+@click.option(
+    "--permission-path",
+    default=".",
+    help="Path to permissions file or directory containing permissions file",
+)
+@click.option(
+    "--export-path",
+    default="./permifrost_permissions.yml",
+    help="Location for the processed permifrost file",
+)
+def apply(verification, generate_roles, permission_path, export_path):
+    """Apply changes to permissions and roles."""
+    permissions = process_permissions(verification, generate_roles, permission_path)
+    permissions.export(export_path)
+    click.echo(f"Changes applied and exported to {export_path}")
 
 
-@click.command('verify')
-@verification_option
-@generate_role_option
-@permission_path_option
+@tundra.command()
+@click.option("--verification", is_flag=True, help="Run permission file verification")
+@click.option(
+    "--generate-roles",
+    is_flag=True,
+    help="Generate AR roles that are not in permissions file",
+)
+@click.option(
+    "--permission-path",
+    default=".",
+    help="Path to permissions file or directory containing permissions file",
+)
 def verify(verification, generate_roles, permission_path):
-    permisions = processing(verification, generate_roles, permission_path)
+    """Verify permissions and roles."""
+    process_permissions(verification, generate_roles, permission_path)
+    click.echo("Verification completed.")
+
+
+def process_permissions(verification, generate_roles, permission_path):
+    permissions = Spesification(verification, generate_roles)
+    permissions.load(permission_path)
+    permissions.identify_modules()
+    permissions.identify_entities()
+    permissions.generate()
+    return permissions
+
+
+if __name__ == "__main__":
+    tundra()
