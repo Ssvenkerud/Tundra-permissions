@@ -3,15 +3,15 @@ import sys
 
 import click
 
-from src.tundra.loader_local_file import Local_file_loader
-from src.tundra.Permission_state import Permission_state
-from src.tundra.Spesification import Spesification
+from .loader_local_file import Local_file_loader
+from .Permission_state import Permission_state
+from .Spesification import Spesification
 
 
 @click.group()
 @click.version_option(version="0.1.0")
 @click.option("--log-level", default="info", help="set logglevel for run")
-def tundra(log_level):
+def cli(log_level):
     """Tundra: A CLI tool for managing permissions and roles."""
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
@@ -32,7 +32,7 @@ def tundra(log_level):
     pass
 
 
-@tundra.command()
+@cli.command()
 @click.option("--verification", is_flag=True, help="Run permission file verification")
 @click.option(
     "--generate-roles",
@@ -56,7 +56,7 @@ def plan(verification, generate_roles, permission_path, state_path, change_path)
     click.echo("Plan completed.")
 
 
-@tundra.command()
+@cli.command()
 @click.option("--verification", is_flag=True, help="Run permission file verification")
 @click.option(
     "--generate-roles",
@@ -80,7 +80,7 @@ def apply(verification, generate_roles, permission_path, export_path):
     click.echo(f"Changes applied and exported to {export_path}")
 
 
-@tundra.command()
+@cli.command()
 @click.option("--verification", is_flag=True, help="Run permission file verification")
 @click.option(
     "--generate-roles",
@@ -108,4 +108,4 @@ def process_permissions(verification, generate_roles, permission_path):
 
 
 if __name__ == "__main__":
-    tundra()
+    cli()

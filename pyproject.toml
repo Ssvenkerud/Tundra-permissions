@@ -1,46 +1,21 @@
-[tool.poetry]
-name = "Tundra"
-version = "0.1.0"
-description = "Module to to take multiple Permifrost spec files and concatenate them into one"
-authors = ["Simen Svenkerud <simen@ullrscrafts.com>"]
-readme = "README.md"
-packages = [{include = "src"}]
-
-[tool.poetry.dependencies]
-python = "^3.12"
-click = "^8.0.3"
-pyyaml = "^6.0.2"
-regex = "^2024.11.6"
-dictdiffer = "^0.9.0"
-wheel = "^0.45.1"
-setuptools = "^75.6.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.4"
-pytest-cov = "^6.0.0"
-pytest-mock = "^3.14.0"
-black = "^24.10.0" 
-isort = "^5.9.3"
-
-
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-tundra = "tundra:tundra"
+tundra = "tundra.tundra:cli"
 
 [project]
-name = "tundra"
+name = "tundra-permissions"
 version = "0.1.0"
 description = "Concatenates multiple Permifrost spec files into one"
 readme = "README.md"
-requires-python = ">=3.6"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
 dependencies = [
-    "click",
-    "pyyaml",
-    "regex",
-    "dictdiffer"
+    "click >= 8.0.3",
+    "pyyaml >= 6.0.2",
+    "regex >= 2024.11.6",
+    "dictdiffer >= 0.9.0",
+    "wheel >= 0.45.1"
 ]
-
-
