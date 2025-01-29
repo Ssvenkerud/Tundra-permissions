@@ -67,8 +67,7 @@ Run the CLI from the location where you can access all the permisions in the sub
 Tundra har 2 primary commands `tundra plan` and `tundra apply` along with a set of options to be set.
 
 ### `tundra plan`
-This Command acts as an analog to the `terraform plan` command.
-It will attempt to compare the 
+This Command acts as an analog to the `terraform plan` command
 
 
 
